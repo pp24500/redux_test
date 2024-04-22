@@ -56,3 +56,9 @@ connect(mapStateToProps, mapDispatchToProps)(UI组件)
 
 - `mapStateToProps`, 负责把redux中store的state转为props，把状态值传递给UI组件
 - `mapDispatchToProps`负责把redux中的dispatch转为props，把一些函数传递给UI组件
+
+
+
+### react-redux优势
+
+不用监测redux中状态的改变，不需要在最外层添加`store.subsribe()`
