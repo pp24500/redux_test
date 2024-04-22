@@ -62,3 +62,44 @@ connect(mapStateToProps, mapDispatchToProps)(UI组件)
 ### react-redux优势
 
 不用监测redux中状态的改变，不需要在最外层添加`store.subsribe()`
+
+
+
+### reducer
+
+reducer的函数必须是**纯函数**
+
+> 纯函数：
+>
+> 1. 相同的输入，必然的到相同的输出
+> 2. 不会产生任何副作用，例如网络和磁盘IO
+> 3. 不得改写参数数据
+> 4. 不能调用`Date.now(), Math.random()`等不纯的方法
+
+```jsx
+// 不合法的reducer
+const initState = [{id: '001', name: 'Tom', age: 18}];
+export default function personReducer(preState = initState, action) {
+  const { type, data } = action;
+  switch (type) {
+    case ADD_PERSON:
+      preState.unshift(data); // 不能改写参数！
+      return preState; // 当传入相同的参数preState地址值不变，结果可能会变化
+    default:
+      return preState;
+  }
+}
+
+// 合法的reducer
+const initState = [{id: '001', name: 'Tom', age: 18}];
+export default function personReducer(preState = initState, action) {
+  const { type, data } = action;
+  switch (type) {
+    case ADD_PERSON:
+      return [data, ...preState]; // 返回了一个新的对象
+    default:
+      return preState;
+  }
+}
+```
+
